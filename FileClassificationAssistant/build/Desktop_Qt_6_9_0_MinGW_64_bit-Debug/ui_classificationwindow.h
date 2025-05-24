@@ -14,10 +14,12 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -43,10 +45,33 @@ public:
     QWidget *widget_4;
     QCheckBox *checkBox;
     QPushButton *pushButton;
+    QCheckBox *checkBox_6;
     QWidget *volumeWidget;
-    QPushButton *pushButton_2;
+    QPushButton *pushButton_size;
+    QCheckBox *checkBox_2;
+    QDoubleSpinBox *doubleSpinBox;
+    QCheckBox *checkBox_3;
+    QCheckBox *checkBox_4;
+    QDoubleSpinBox *doubleSpinBox_2;
+    QDoubleSpinBox *doubleSpinBox_3;
+    QDoubleSpinBox *doubleSpinBox_4;
+    QCheckBox *checkBox_5;
+    QDoubleSpinBox *doubleSpinBox_5;
+    QLabel *label_5;
+    QLabel *label_7;
+    QLabel *label_8;
+    QLabel *label_9;
+    QLabel *label_10;
+    QLabel *label_11;
     QWidget *widget_6;
-    QPushButton *pushButton_3;
+    QPushButton *pushButton_time;
+    QCheckBox *checkBox_7;
+    QSpinBox *spinBox;
+    QLabel *label_6;
+    QCheckBox *checkBox_8;
+    QSpinBox *spinBox_2;
+    QCheckBox *checkBox_9;
+    QSpinBox *spinBox_3;
     QLabel *label_4;
 
     void setupUi(QDialog *classificationWindow)
@@ -63,6 +88,7 @@ public:
         backButton = new QPushButton(widget_2);
         backButton->setObjectName("backButton");
         backButton->setMinimumSize(QSize(0, 50));
+        backButton->setFocusPolicy(Qt::FocusPolicy::StrongFocus);
 
         horizontalLayout_2->addWidget(backButton);
 
@@ -110,22 +136,104 @@ public:
         widget_4->setGeometry(QRect(10, 60, 541, 150));
         checkBox = new QCheckBox(widget_4);
         checkBox->setObjectName("checkBox");
-        checkBox->setGeometry(QRect(10, 50, 361, 18));
+        checkBox->setGeometry(QRect(10, 50, 521, 18));
         pushButton = new QPushButton(widget_4);
         pushButton->setObjectName("pushButton");
         pushButton->setGeometry(QRect(10, 10, 131, 31));
+        checkBox_6 = new QCheckBox(widget_4);
+        checkBox_6->setObjectName("checkBox_6");
+        checkBox_6->setGeometry(QRect(10, 70, 511, 18));
         volumeWidget = new QWidget(scrollAreaWidgetContents_2);
         volumeWidget->setObjectName("volumeWidget");
         volumeWidget->setGeometry(QRect(10, 210, 541, 150));
-        pushButton_2 = new QPushButton(volumeWidget);
-        pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(10, 10, 131, 31));
+        pushButton_size = new QPushButton(volumeWidget);
+        pushButton_size->setObjectName("pushButton_size");
+        pushButton_size->setGeometry(QRect(10, 10, 131, 31));
+        checkBox_2 = new QCheckBox(volumeWidget);
+        checkBox_2->setObjectName("checkBox_2");
+        checkBox_2->setGeometry(QRect(270, 50, 251, 18));
+        doubleSpinBox = new QDoubleSpinBox(volumeWidget);
+        doubleSpinBox->setObjectName("doubleSpinBox");
+        doubleSpinBox->setGeometry(QRect(50, 50, 151, 21));
+        doubleSpinBox->setMaximum(9999.989999999999782);
+        doubleSpinBox->setSingleStep(50.000000000000000);
+        doubleSpinBox->setStepType(QAbstractSpinBox::StepType::DefaultStepType);
+        checkBox_3 = new QCheckBox(volumeWidget);
+        checkBox_3->setObjectName("checkBox_3");
+        checkBox_3->setGeometry(QRect(10, 80, 381, 16));
+        checkBox_4 = new QCheckBox(volumeWidget);
+        checkBox_4->setObjectName("checkBox_4");
+        checkBox_4->setGeometry(QRect(10, 50, 221, 18));
+        doubleSpinBox_2 = new QDoubleSpinBox(volumeWidget);
+        doubleSpinBox_2->setObjectName("doubleSpinBox_2");
+        doubleSpinBox_2->setGeometry(QRect(310, 50, 131, 21));
+        doubleSpinBox_2->setMaximum(9999.989999999999782);
+        doubleSpinBox_2->setSingleStep(10.000000000000000);
+        doubleSpinBox_3 = new QDoubleSpinBox(volumeWidget);
+        doubleSpinBox_3->setObjectName("doubleSpinBox_3");
+        doubleSpinBox_3->setGeometry(QRect(30, 80, 151, 21));
+        doubleSpinBox_3->setMaximum(9999.989999999999782);
+        doubleSpinBox_3->setSingleStep(10.000000000000000);
+        doubleSpinBox_4 = new QDoubleSpinBox(volumeWidget);
+        doubleSpinBox_4->setObjectName("doubleSpinBox_4");
+        doubleSpinBox_4->setGeometry(QRect(230, 80, 131, 21));
+        doubleSpinBox_4->setMaximum(9999.989999999999782);
+        doubleSpinBox_4->setSingleStep(10.000000000000000);
+        checkBox_5 = new QCheckBox(volumeWidget);
+        checkBox_5->setObjectName("checkBox_5");
+        checkBox_5->setGeometry(QRect(10, 110, 461, 18));
+        doubleSpinBox_5 = new QDoubleSpinBox(volumeWidget);
+        doubleSpinBox_5->setObjectName("doubleSpinBox_5");
+        doubleSpinBox_5->setGeometry(QRect(60, 110, 141, 21));
+        doubleSpinBox_5->setMaximum(9999.989999999999782);
+        doubleSpinBox_5->setSingleStep(50.000000000000000);
+        label_5 = new QLabel(volumeWidget);
+        label_5->setObjectName("label_5");
+        label_5->setGeometry(QRect(160, 20, 371, 16));
+        label_7 = new QLabel(volumeWidget);
+        label_7->setObjectName("label_7");
+        label_7->setGeometry(QRect(210, 50, 40, 16));
+        label_8 = new QLabel(volumeWidget);
+        label_8->setObjectName("label_8");
+        label_8->setGeometry(QRect(450, 50, 40, 16));
+        label_9 = new QLabel(volumeWidget);
+        label_9->setObjectName("label_9");
+        label_9->setGeometry(QRect(370, 80, 40, 16));
+        label_10 = new QLabel(volumeWidget);
+        label_10->setObjectName("label_10");
+        label_10->setGeometry(QRect(190, 80, 40, 16));
+        label_11 = new QLabel(volumeWidget);
+        label_11->setObjectName("label_11");
+        label_11->setGeometry(QRect(210, 110, 40, 16));
         widget_6 = new QWidget(scrollAreaWidgetContents_2);
         widget_6->setObjectName("widget_6");
-        widget_6->setGeometry(QRect(10, 360, 541, 200));
-        pushButton_3 = new QPushButton(widget_6);
-        pushButton_3->setObjectName("pushButton_3");
-        pushButton_3->setGeometry(QRect(10, 10, 131, 31));
+        widget_6->setGeometry(QRect(10, 360, 541, 151));
+        pushButton_time = new QPushButton(widget_6);
+        pushButton_time->setObjectName("pushButton_time");
+        pushButton_time->setGeometry(QRect(10, 10, 131, 31));
+        checkBox_7 = new QCheckBox(widget_6);
+        checkBox_7->setObjectName("checkBox_7");
+        checkBox_7->setGeometry(QRect(10, 60, 391, 18));
+        spinBox = new QSpinBox(widget_6);
+        spinBox->setObjectName("spinBox");
+        spinBox->setGeometry(QRect(30, 60, 111, 21));
+        spinBox->setMaximum(9999);
+        label_6 = new QLabel(widget_6);
+        label_6->setObjectName("label_6");
+        label_6->setGeometry(QRect(160, 20, 381, 16));
+        checkBox_8 = new QCheckBox(widget_6);
+        checkBox_8->setObjectName("checkBox_8");
+        checkBox_8->setGeometry(QRect(10, 90, 391, 18));
+        spinBox_2 = new QSpinBox(widget_6);
+        spinBox_2->setObjectName("spinBox_2");
+        spinBox_2->setGeometry(QRect(30, 90, 111, 21));
+        spinBox_2->setMaximum(999);
+        checkBox_9 = new QCheckBox(widget_6);
+        checkBox_9->setObjectName("checkBox_9");
+        checkBox_9->setGeometry(QRect(10, 120, 391, 18));
+        spinBox_3 = new QSpinBox(widget_6);
+        spinBox_3->setObjectName("spinBox_3");
+        spinBox_3->setGeometry(QRect(30, 120, 111, 21));
         label_4 = new QLabel(scrollAreaWidgetContents_2);
         label_4->setObjectName("label_4");
         label_4->setGeometry(QRect(10, 10, 361, 21));
@@ -152,8 +260,23 @@ public:
         label_3->setText(QCoreApplication::translate("classificationWindow", "\346\263\250\357\274\232\344\270\215\345\214\205\345\220\253\345\217\252\350\257\273/\347\263\273\347\273\237/\351\232\220\350\227\217\346\226\207\344\273\266\345\217\212\346\226\207\344\273\266\345\244\271", nullptr));
         checkBox->setText(QCoreApplication::translate("classificationWindow", "\345\215\240\346\257\224\345\260\217\344\272\2165%\347\232\204\346\226\207\344\273\266\345\275\222\347\261\273\344\270\272\342\200\234\345\205\266\344\273\226\342\200\235\357\274\210\344\270\215\345\213\276\351\200\211\345\210\231\344\270\215\344\272\210\345\244\204\347\220\206\357\274\211", nullptr));
         pushButton->setText(QCoreApplication::translate("classificationWindow", "\346\214\211\346\226\207\344\273\266\347\261\273\345\236\213\345\210\206\347\261\273", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("classificationWindow", "\346\214\211\346\226\207\344\273\266\344\275\223\347\247\257\345\210\206\347\261\273", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("classificationWindow", "\346\214\211\344\277\256\346\224\271\346\227\266\351\227\264\345\210\206\347\261\273", nullptr));
+        checkBox_6->setText(QCoreApplication::translate("classificationWindow", "\345\215\240\346\257\224\345\260\217\344\272\2165%\347\232\204\346\226\207\344\273\266\344\271\237\345\210\206\345\210\253\345\215\225\347\213\254\350\277\233\350\241\214\345\275\222\347\261\273\357\274\210\344\270\215\345\213\276\351\200\211\345\210\231\344\270\215\344\272\210\345\244\204\347\220\206\357\274\211", nullptr));
+        pushButton_size->setText(QCoreApplication::translate("classificationWindow", "\346\214\211\346\226\207\344\273\266\344\275\223\347\247\257\345\210\206\347\261\273", nullptr));
+        checkBox_2->setText(QCoreApplication::translate("classificationWindow", "\345\260\217\344\272\216                                                        ", nullptr));
+        checkBox_3->setText(QString());
+        checkBox_4->setText(QCoreApplication::translate("classificationWindow", "\345\260\217\344\272\216                                                                  ", nullptr));
+        checkBox_5->setText(QCoreApplication::translate("classificationWindow", "\345\244\247\344\272\216                                                               ", nullptr));
+        label_5->setText(QCoreApplication::translate("classificationWindow", "\346\263\250\357\274\232\350\214\203\345\233\264\345\246\202\346\234\211\351\207\215\345\217\240\357\274\214\351\207\215\345\217\240\350\214\203\345\233\264\345\206\205\347\232\204\346\226\207\344\273\266\345\260\206\344\274\232\350\242\253\345\244\215\345\210\266\345\244\232\344\273\275", nullptr));
+        label_7->setText(QCoreApplication::translate("classificationWindow", "K", nullptr));
+        label_8->setText(QCoreApplication::translate("classificationWindow", "M", nullptr));
+        label_9->setText(QCoreApplication::translate("classificationWindow", "M", nullptr));
+        label_10->setText(QCoreApplication::translate("classificationWindow", "M \342\200\224\342\200\224", nullptr));
+        label_11->setText(QCoreApplication::translate("classificationWindow", "M", nullptr));
+        pushButton_time->setText(QCoreApplication::translate("classificationWindow", "\346\214\211\344\277\256\346\224\271\346\227\266\351\227\264\345\210\206\347\261\273", nullptr));
+        checkBox_7->setText(QCoreApplication::translate("classificationWindow", "                                               \345\244\251\345\206\205", nullptr));
+        label_6->setText(QCoreApplication::translate("classificationWindow", "\346\263\250\357\274\232\350\214\203\345\233\264\345\246\202\346\234\211\351\207\215\345\217\240\357\274\214\351\207\215\345\217\240\350\214\203\345\233\264\345\206\205\347\232\204\346\226\207\344\273\266\345\260\206\344\274\232\350\242\253\345\244\215\345\210\266\345\244\232\344\273\275", nullptr));
+        checkBox_8->setText(QCoreApplication::translate("classificationWindow", "                                               \346\234\210\345\206\205", nullptr));
+        checkBox_9->setText(QCoreApplication::translate("classificationWindow", "                                               \345\271\264\345\206\205", nullptr));
         label_4->setText(QCoreApplication::translate("classificationWindow", "\350\256\276\347\275\256\345\245\275\345\220\216 \347\202\271\345\207\273\346\214\211\351\222\256\346\237\245\347\234\213\345\210\206\347\261\273\346\225\210\346\236\234\351\242\204\350\247\210", nullptr));
     } // retranslateUi
 

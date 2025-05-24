@@ -26,6 +26,12 @@ private slots:
 
     void on_backButton_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_pushButton_size_clicked();
+
+    void on_pushButton_time_clicked();
+
 private:
     Ui::classificationWindow *ui;
     QString selectedPath = "";

@@ -1,0 +1,13 @@
+debug/classificationwindow.o
+debug/executewindow.o
+debug/main.o
+debug/mainwindow.o
+debug/previewwindow.o
+debug/sizepreviewwindow.o
+debug/timepreviewwindow.o
+debug/moc_classificationwindow.o
+debug/moc_executewindow.o
+debug/moc_mainwindow.o
+debug/moc_previewwindow.o
+debug/moc_sizepreviewwindow.o
+debug/moc_timepreviewwindow.o

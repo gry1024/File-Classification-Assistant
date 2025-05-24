@@ -13,17 +13,26 @@ SOURCES += \
     classificationwindow.cpp \
     executewindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    previewwindow.cpp \
+    sizepreviewwindow.cpp \
+    timepreviewwindow.cpp
 
 HEADERS += \
     classificationwindow.h \
     executewindow.h \
-    mainwindow.h
+    mainwindow.h \
+    previewwindow.h \
+    sizepreviewwindow.h \
+    timepreviewwindow.h
 
 FORMS += \
     classificationwindow.ui \
     executewindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    previewwindow.ui \
+    sizepreviewwindow.ui \
+    timepreviewwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
