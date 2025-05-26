@@ -1,3 +1,4 @@
+// 选择目录窗口
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -19,7 +20,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_choseFileButton_clicked();
+    void on_choseFileButton_clicked(); //选择路径 按钮
 
 private:
     QString selectedPath = "";

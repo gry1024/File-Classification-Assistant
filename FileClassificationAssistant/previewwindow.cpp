@@ -1,5 +1,7 @@
 // previewwindow.cpp
+//文件类型分类预览窗口
 #include "previewwindow.h"
+#include "executewindow.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QHeaderView>
@@ -12,7 +14,7 @@ FileItemWidget::FileItemWidget(const QString &fileName, bool isSelected, QWidget
     : QWidget(parent), m_fileName(fileName), m_isSelected(isSelected) {
 
     QHBoxLayout *layout = new QHBoxLayout(this);
-    layout->setContentsMargins(5, 3, 5, 3);  // 减小垂直边距
+    layout->setContentsMargins(5, 3, 5, 3);
     layout->setSpacing(8);
 
     // 文件名标签
@@ -56,7 +58,6 @@ FileItemWidget::FileItemWidget(const QString &fileName, bool isSelected, QWidget
     layout->addWidget(fileNameLabel);
     layout->addWidget(m_selectButton);
 
-    // 设置更小的固定高度
     setFixedHeight(28);
 
     connect(m_selectButton, &QPushButton::clicked, this, &FileItemWidget::onSelectButtonClicked);
@@ -77,7 +78,7 @@ void FileItemWidget::onSelectButtonClicked() {
 }
 
 
-// FileTypeWidget 实现
+
 FileTypeWidget::FileTypeWidget(const QString &fileType, const QStringList &files, QWidget *parent)
     : QFrame(parent), m_fileType(fileType), m_files(files)
 {
@@ -139,7 +140,7 @@ void FileTypeWidget::setupUI()
     setLineWidth(1);
     setMinimumWidth(280);
     setMaximumWidth(320);
-    setMinimumHeight(550);  // 增加高度
+    setMinimumHeight(550);
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     // 设置样式
@@ -251,7 +252,7 @@ void FileTypeWidget::onFileItemClicked(QListWidgetItem *item)
     }
 }
 
-// PreviewWindow 实现
+
 PreviewWindow::PreviewWindow(QWidget *parent)
     : QDialog(parent)
 {
@@ -264,13 +265,11 @@ PreviewWindow::PreviewWindow(QWidget *parent)
     int screenWidth = screenGeometry.width();
     int screenHeight = screenGeometry.height();
 
-    // 设置窗口大小为屏幕的90%
+
     int windowWidth = static_cast<int>(screenWidth * 0.9);
     int windowHeight = static_cast<int>(screenHeight * 0.9);
 
     resize(windowWidth, windowHeight);
-
-    // 居中显示
     move((screenWidth - windowWidth) / 2, (screenHeight - windowHeight) / 2);
 }
 
@@ -347,6 +346,7 @@ void PreviewWindow::setupUI()
     QPushButton *deselectAllBtn = new QPushButton("全不选");
     QPushButton *refreshBtn = new QPushButton("刷新");
     QPushButton *closeBtn = new QPushButton("关闭");
+    QPushButton *executeBtn = new QPushButton("执行");
 
     // 统一按钮样式
     QString buttonStyle =
@@ -406,6 +406,17 @@ void PreviewWindow::setupUI()
                             "QPushButton:pressed {"
                             "    background-color: #a93226;"
                             "}");
+    executeBtn->setStyleSheet(buttonStyle +
+                              "QPushButton {"
+                              "    background-color: #16a085;"
+                              "    color: white;"
+                              "}"
+                              "QPushButton:hover {"
+                              "    background-color: #138d75;"
+                              "}"
+                              "QPushButton:pressed {"
+                              "    background-color: #117964;"
+                              "}");
 
     connect(selectAllBtn, &QPushButton::clicked, this, &PreviewWindow::selectAllFiles);
     connect(deselectAllBtn, &QPushButton::clicked, this, &PreviewWindow::deselectAllFiles);
@@ -413,11 +424,13 @@ void PreviewWindow::setupUI()
     connect(refreshBtn, &QPushButton::clicked, [this]() {
         QMessageBox::information(this, "刷新", "刷新文件列表完成！");
     });
+    connect(executeBtn, &QPushButton::clicked, this, &PreviewWindow::onExecuteButtonClicked);
 
     buttonLayout->addWidget(selectAllBtn);
     buttonLayout->addWidget(deselectAllBtn);
     buttonLayout->addWidget(refreshBtn);
     buttonLayout->addWidget(closeBtn);
+    buttonLayout->addWidget(executeBtn);
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
@@ -479,4 +492,29 @@ void PreviewWindow::deselectAllFiles()
 void PreviewWindow::onCloseButtonClicked()
 {
     accept();
+}
+
+void PreviewWindow::onExecuteButtonClicked()
+{
+    // 创建执行窗口实例
+    ExecuteWindow *executeWindow = new ExecuteWindow(this);
+
+    // 以模态对话框形式显示
+    int result = executeWindow->exec();
+
+    // 处理对话框返回结果
+    if (result == QDialog::Accepted) {
+        // 用户点击了"完成"按钮，处理已成功完成
+        QMessageBox::information(this, "操作完成",
+                                 "文件分类处理已成功完成！\n您可以查看分类结果。");
+    }
+    else if (result == QDialog::Rejected) {
+        // 用户选择了撤销操作或关闭了窗口
+        QMessageBox::information(this, "操作取消",
+                                 "文件分类操作已被取消或撤销。");
+    }
+
+    // 清理资源
+    delete executeWindow;
+    executeWindow = nullptr;
 }

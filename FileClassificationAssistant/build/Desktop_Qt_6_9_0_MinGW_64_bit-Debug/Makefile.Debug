@@ -139,7 +139,6 @@ compiler_moc_header_make_all: debug/moc_classificationwindow.cpp debug/moc_execu
 compiler_moc_header_clean:
 	-$(DEL_FILE) debug\moc_classificationwindow.cpp debug\moc_executewindow.cpp debug\moc_mainwindow.cpp debug\moc_previewwindow.cpp debug\moc_sizepreviewwindow.cpp debug\moc_timepreviewwindow.cpp
 debug/moc_classificationwindow.cpp: ../../classificationwindow.h \
-		../../../../6.9.0/mingw_64/include/QtCharts \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QDialog \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qdialog.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -338,15 +337,15 @@ debug/moc_classificationwindow.cpp: ../../classificationwindow.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qinputmethod.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qguiapplication_platform.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QScrollArea \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qscrollarea.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qboxlayout.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qlayout.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qlayoutitem.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../6.9.0/mingw_64/include/QtCore/QMap \
+		../../../../6.9.0/mingw_64/include/QtCharts \
+		../../../../6.9.0/mingw_64/include/QtCore/QFileInfo \
+		../../../../6.9.0/mingw_64/include/QtCore/qfileinfo.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qfile.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qfiledevice.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qtimezone.h \
 		debug/moc_predefs.h \
 		../../../../6.9.0/mingw_64/bin/moc.exe
 	E:\Qt\6.9.0\mingw_64\bin\moc.exe $(DEFINES) --include E:/Qt/myproject/FileClassificationAssistant/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IE:/Qt/6.9.0/mingw_64/mkspecs/win32-g++ -IE:/Qt/myproject/FileClassificationAssistant -IE:/Qt/6.9.0/mingw_64/include -IE:/Qt/6.9.0/mingw_64/include/QtCharts -IE:/Qt/6.9.0/mingw_64/include/QtOpenGLWidgets -IE:/Qt/6.9.0/mingw_64/include/QtWidgets -IE:/Qt/6.9.0/mingw_64/include/QtOpenGL -IE:/Qt/6.9.0/mingw_64/include/QtGui -IE:/Qt/6.9.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\classificationwindow.h -o debug\moc_classificationwindow.cpp
@@ -550,6 +549,24 @@ debug/moc_executewindow.cpp: ../../executewindow.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qinputmethod.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qguiapplication_platform.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QProgressBar \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qprogressbar.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QPushButton \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QLabel \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlabel.h \
+		../../../../6.9.0/mingw_64/include/QtGui/qpicture.h \
+		../../../../6.9.0/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../6.9.0/mingw_64/include/QtCore/QTimer \
+		../../../../6.9.0/mingw_64/include/QtCore/qtimer.h \
 		debug/moc_predefs.h \
 		../../../../6.9.0/mingw_64/bin/moc.exe
 	E:\Qt\6.9.0\mingw_64\bin\moc.exe $(DEFINES) --include E:/Qt/myproject/FileClassificationAssistant/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IE:/Qt/6.9.0/mingw_64/mkspecs/win32-g++ -IE:/Qt/myproject/FileClassificationAssistant -IE:/Qt/6.9.0/mingw_64/include -IE:/Qt/6.9.0/mingw_64/include/QtCharts -IE:/Qt/6.9.0/mingw_64/include/QtOpenGLWidgets -IE:/Qt/6.9.0/mingw_64/include/QtWidgets -IE:/Qt/6.9.0/mingw_64/include/QtOpenGL -IE:/Qt/6.9.0/mingw_64/include/QtGui -IE:/Qt/6.9.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\executewindow.h -o debug\moc_executewindow.cpp
@@ -1250,6 +1267,9 @@ debug/moc_sizepreviewwindow.cpp: ../../sizepreviewwindow.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextoption.h \
 		../../../../6.9.0/mingw_64/include/QtCore/QMap \
 		../../../../6.9.0/mingw_64/include/QtCore/QStringList \
+		../../../../6.9.0/mingw_64/include/QtCore/QDateTime \
+		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
 		debug/moc_predefs.h \
 		../../../../6.9.0/mingw_64/bin/moc.exe
 	E:\Qt\6.9.0\mingw_64\bin\moc.exe $(DEFINES) --include E:/Qt/myproject/FileClassificationAssistant/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/debug/moc_predefs.h -IE:/Qt/6.9.0/mingw_64/mkspecs/win32-g++ -IE:/Qt/myproject/FileClassificationAssistant -IE:/Qt/6.9.0/mingw_64/include -IE:/Qt/6.9.0/mingw_64/include/QtCharts -IE:/Qt/6.9.0/mingw_64/include/QtOpenGLWidgets -IE:/Qt/6.9.0/mingw_64/include/QtWidgets -IE:/Qt/6.9.0/mingw_64/include/QtOpenGL -IE:/Qt/6.9.0/mingw_64/include/QtGui -IE:/Qt/6.9.0/mingw_64/include/QtCore -I. -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++ -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32 -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include -IE:/Qt/Tools/mingw1310_64/lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed -IE:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include ..\..\sizepreviewwindow.h -o debug\moc_sizepreviewwindow.cpp
@@ -1547,7 +1567,6 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 debug/classificationwindow.o: ../../classificationwindow.cpp ../../classificationwindow.h \
-		../../../../6.9.0/mingw_64/include/QtCharts \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QDialog \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qdialog.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1746,16 +1765,34 @@ debug/classificationwindow.o: ../../classificationwindow.cpp ../../classificatio
 		../../../../6.9.0/mingw_64/include/QtGui/qinputmethod.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qguiapplication_platform.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QScrollArea \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qscrollarea.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtCore/QMap \
+		../../../../6.9.0/mingw_64/include/QtCharts \
+		../../../../6.9.0/mingw_64/include/QtCore/QFileInfo \
+		../../../../6.9.0/mingw_64/include/QtCore/qfileinfo.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qfile.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qfiledevice.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qtimezone.h \
+		../../executewindow.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QVBoxLayout \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qboxlayout.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qlayout.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qlayoutitem.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qgridlayout.h \
-		../../executewindow.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QProgressBar \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qprogressbar.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QPushButton \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QLabel \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlabel.h \
+		../../../../6.9.0/mingw_64/include/QtGui/qpicture.h \
+		../../../../6.9.0/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../6.9.0/mingw_64/include/QtCore/QTimer \
+		../../../../6.9.0/mingw_64/include/QtCore/qtimer.h \
 		ui_classificationwindow.h \
 		../../../../6.9.0/mingw_64/include/QtCharts/QChartView \
 		../../../../6.9.0/mingw_64/include/QtCharts/qchartview.h \
@@ -1786,23 +1823,19 @@ debug/classificationwindow.o: ../../classificationwindow.cpp ../../classificatio
 		../../../../6.9.0/mingw_64/include/QtWidgets/qgraphicsview.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qpainter.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextoption.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qscrollarea.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qgraphicsscene.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QApplication \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qapplication.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QCheckBox \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qcheckbox.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractbutton.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QDoubleSpinBox \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qspinbox.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractspinbox.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qvalidator.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qregularexpression.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QLabel \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qlabel.h \
-		../../../../6.9.0/mingw_64/include/QtGui/qpicture.h \
-		../../../../6.9.0/mingw_64/include/QtGui/qtextdocument.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QPushButton \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QScrollArea \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QSpinBox \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QWidget \
 		../../previewwindow.h \
@@ -1810,7 +1843,6 @@ debug/classificationwindow.o: ../../classificationwindow.cpp ../../classificatio
 		../../../../6.9.0/mingw_64/include/QtWidgets/qlineedit.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextcursor.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextformat.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QVBoxLayout \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QFrame \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QScrollBar \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qscrollbar.h \
@@ -1829,21 +1861,18 @@ debug/classificationwindow.o: ../../classificationwindow.cpp ../../classificatio
 		../../../../6.9.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qrubberband.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QListWidgetItem \
-		../../../../6.9.0/mingw_64/include/QtCore/QMap \
 		../../../../6.9.0/mingw_64/include/QtCore/QStringList \
 		../../sizepreviewwindow.h \
-		../../timepreviewwindow.h \
 		../../../../6.9.0/mingw_64/include/QtCore/QDateTime \
-		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
+		../../timepreviewwindow.h \
 		../../../../6.9.0/mingw_64/include/QtCore/QtAlgorithms \
 		../../../../6.9.0/mingw_64/include/QtCore/QDir \
 		../../../../6.9.0/mingw_64/include/QtCore/qdir.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qdirlisting.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qfiledevice.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qfile.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qfileinfo.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qtimezone.h
+		../../../../6.9.0/mingw_64/include/QtCore/QDate \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QMessageBox \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qmessagebox.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qdialogbuttonbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\classificationwindow.o ..\..\classificationwindow.cpp
 
 debug/executewindow.o: ../../executewindow.cpp ../../executewindow.h \
@@ -2045,8 +2074,27 @@ debug/executewindow.o: ../../executewindow.cpp ../../executewindow.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qinputmethod.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qlocale.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qguiapplication_platform.h \
-		ui_executewindow.h \
-		../../../../6.9.0/mingw_64/include/QtCore/QVariant \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QProgressBar \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qprogressbar.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QPushButton \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qpushbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractbutton.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QLabel \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlabel.h \
+		../../../../6.9.0/mingw_64/include/QtGui/qpicture.h \
+		../../../../6.9.0/mingw_64/include/QtGui/qtextdocument.h \
+		../../../../6.9.0/mingw_64/include/QtCore/QTimer \
+		../../../../6.9.0/mingw_64/include/QtCore/qtimer.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QMessageBox \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qmessagebox.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QApplication \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\executewindow.o ..\..\executewindow.cpp
@@ -2456,18 +2504,17 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qtabwidget.h \
 		../../classificationwindow.h \
-		../../../../6.9.0/mingw_64/include/QtCharts \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QDialog \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qdialog.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QScrollArea \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qscrollarea.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qboxlayout.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qlayout.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qlayoutitem.h \
-		../../../../6.9.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../6.9.0/mingw_64/include/QtCore/QMap \
+		../../../../6.9.0/mingw_64/include/QtCharts \
+		../../../../6.9.0/mingw_64/include/QtCore/QFileInfo \
+		../../../../6.9.0/mingw_64/include/QtCore/qfileinfo.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qfile.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qfiledevice.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qtimezone.h \
 		ui_mainwindow.h \
 		../../../../6.9.0/mingw_64/include/QtCore/QVariant \
 		../../../../6.9.0/mingw_64/include/QtGui/QAction \
@@ -2484,8 +2531,14 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qstatusbar.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QWidget \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QVBoxLayout \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qboxlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qlayoutitem.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qgridlayout.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/QHBoxLayout \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QLineEdit \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qlineedit.h \
+		../../../../6.9.0/mingw_64/include/QtWidgets/qframe.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextcursor.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextdocument.h \
 		../../../../6.9.0/mingw_64/include/QtGui/qtextformat.h \
@@ -2495,12 +2548,6 @@ debug/mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qfiledialog.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qdir.h \
 		../../../../6.9.0/mingw_64/include/QtCore/qdirlisting.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qfiledevice.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qfile.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qfileinfo.h \
-		../../../../6.9.0/mingw_64/include/QtCore/qtimezone.h \
 		../../../../6.9.0/mingw_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\..\mainwindow.cpp
 
@@ -3003,6 +3050,9 @@ debug/sizepreviewwindow.o: ../../sizepreviewwindow.cpp ../../sizepreviewwindow.h
 		../../../../6.9.0/mingw_64/include/QtGui/qtextoption.h \
 		../../../../6.9.0/mingw_64/include/QtCore/QMap \
 		../../../../6.9.0/mingw_64/include/QtCore/QStringList \
+		../../../../6.9.0/mingw_64/include/QtCore/QDateTime \
+		../../../../6.9.0/mingw_64/include/QtCore/qdatetime.h \
+		../../../../6.9.0/mingw_64/include/QtCore/qcalendar.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QApplication \
 		../../../../6.9.0/mingw_64/include/QtWidgets/qapplication.h \
 		../../../../6.9.0/mingw_64/include/QtWidgets/QMessageBox \

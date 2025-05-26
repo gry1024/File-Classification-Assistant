@@ -1,21 +1,20 @@
-#ifndef PREVIEWWINDOW_H                          // 防止头文件重复包含的宏定义
-#define PREVIEWWINDOW_H                          // 头文件保护宏结束标记（与#endif对应）
-
-// 包含必要的Qt头文件，每个组件对应一个头文件
-#include <QLineEdit>            // 用于创建文件夹名称输入框的单行文本编辑框
-#include <QWidget>              // 所有用户界面元素的基类
-#include <QDialog>              // 对话框窗口基类，用于模态/非模态对话框
-#include <QScrollArea>          // 提供滚动视图的组件，用于实现内容滚动
-#include <QHBoxLayout>          // 水平布局管理器，用于横向排列子组件
-#include <QVBoxLayout>          // 垂直布局管理器，用于纵向排列子组件
-#include <QLabel>               // 用于显示文本或图像的标签组件
-#include <QFrame>               // 带边框和背景的框架组件，用于分组和视觉分隔
-#include <QScrollBar>           // 独立滚动条组件，用于自定义滚动逻辑
-#include <QPushButton>          // 可点击的按钮组件，用于触发操作
-#include <QListWidget>          // 可显示列表项的组件，支持项目选择和交互
-#include <QListWidgetItem>      // 列表组件中的单个项目类
-#include <QMap>                 // 基于哈希表的键值对容器，用于快速查找
-#include <QStringList>          // 字符串列表容器，用于存储文件路径等字符串集合
+//按文件类型分类效果预览窗口
+#ifndef PREVIEWWINDOW_H
+#define PREVIEWWINDOW_H
+#include <QLineEdit>
+#include <QWidget>
+#include <QDialog>
+#include <QScrollArea>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QFrame>
+#include <QScrollBar>
+#include <QPushButton>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QMap>
+#include <QStringList>
 
 // ====================== 文件项组件类 ======================
 class FileItemWidget : public QWidget {          // 继承自QWidget，代表单个文件项
@@ -121,6 +120,9 @@ private slots:
 
     // 全不选所有文件：遍历所有类型组件并调用deselectAll()
     void deselectAllFiles();
+
+    // 执行
+    void onExecuteButtonClicked();
 };
 
 #endif // PREVIEWWINDOW_H                         // 头文件保护宏结束标记

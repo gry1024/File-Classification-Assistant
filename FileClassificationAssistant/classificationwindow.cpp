@@ -1,5 +1,5 @@
+// 文件面板及分类方案选择主界面
 #include "classificationwindow.h"
-#include "executewindow.h"
 #include "ui_classificationwindow.h"
 #include "previewwindow.h"
 #include "sizepreviewwindow.h"
@@ -9,6 +9,7 @@
 #include <QtCharts>
 #include <QDateTime>
 #include <QDate>
+#include <QMessageBox>
 
 classificationWindow::classificationWindow(const QString& Path, QWidget *parent)
     : QDialog(parent)
@@ -19,7 +20,6 @@ classificationWindow::classificationWindow(const QString& Path, QWidget *parent)
     resize(1000, 800);
     qDebug() << "selectedPath:" << selectedPath;
     updateFileStatistics();
-
 }
 
 classificationWindow::~classificationWindow()
@@ -27,7 +27,7 @@ classificationWindow::~classificationWindow()
     delete ui;
 }
 
-// 初始化图表配置
+// 初始化文件类型图表配置
 void classificationWindow::initChart()
 {
     // 创建图表和视图
@@ -41,16 +41,15 @@ void classificationWindow::initChart()
     fileTypeChart->setAnimationOptions(QChart::AllAnimations);
 
     // 设置图表边距
-    fileTypeChart->setMargins(QMargins(10, 20, 10, 40));  // 下边距增加
-    // fileTypeChart->setMargins(QMargins(10, 10, 10, 10));
+    fileTypeChart->setMargins(QMargins(10, 10, 10, 10));
 
     // 设置图表标题
     fileTypeChart->setTitle("文件类型占比");
 
-    // 隐藏图例（关键代码）
+    // 隐藏图例
     fileTypeChart->legend()->hide();
-
 }
+
 
 void classificationWindow::updateFileStatistics(){
     //selectedPath：用户选择的文件夹路径
@@ -60,23 +59,42 @@ void classificationWindow::updateFileStatistics(){
     }
     // 统计文件总数
     int totalFileCount = 0;
+    qint64 totalFileSize = 0;
     // 用于存储文件类型及其数量的映射
     QMap<QString, int> fileTypeCount;
+    // 用于存储文件大小分类及其数量和总大小的映射
+    QMap<QString, int> fileSizeCount;
+    QMap<QString, qint64> fileSizeTotalSize;
 
     // 遍历目录下的文件
     QFileInfoList fileList = dir.entryInfoList(QDir::Files | QDir::NoDotAndDotDot | QDir::Hidden | QDir::System | QDir::Readable);
     for (const QFileInfo &fileInfo : fileList) {
         if (fileInfo.isFile()) {
             totalFileCount++;
+            qint64 fileSize = fileInfo.size();
+            totalFileSize += fileSize;
+
+            // 统计文件类型
             QString fileType = fileInfo.suffix();
             if (fileTypeCount.contains(fileType)) {
                 fileTypeCount[fileType]++;
             } else {
                 fileTypeCount[fileType] = 1;
             }
+
+            // 统计文件大小分类
+            QString sizeCategory = getFileSizeCategory(fileSize);
+            if (fileSizeCount.contains(sizeCategory)) {
+                fileSizeCount[sizeCategory]++;
+                fileSizeTotalSize[sizeCategory] += fileSize;
+            } else {
+                fileSizeCount[sizeCategory] = 1;
+                fileSizeTotalSize[sizeCategory] = fileSize;
+            }
         }
     }
-    // 分组逻辑示例：将占比小于一定比例的文件类型合并为“其他”
+
+    // 分组逻辑示例：将占比小于一定比例的文件类型合并为"其他"
     QMap<QString, int> groupedFileTypeCount;
     int thresholdCount = totalFileCount * 0.05; // 占比小于5%的归为其他
     for (const QString &type : fileTypeCount.keys()) {
@@ -90,17 +108,46 @@ void classificationWindow::updateFileStatistics(){
             groupedFileTypeCount["其他"] += count;
         }
     }
+
     // 更新数据显示
     ui->pathLabel->setWordWrap(true);
     ui->pathLabel->setText(QString("路径：%1").arg(selectedPath));
-    ui->totalFileCountLabel->setText(QString("文件总数：%1      文件类型数：%2").arg(totalFileCount).arg(fileTypeCount.size()));
+    ui->totalFileCountLabel->setText(QString("文件总数：%1      文件类型数：%2      总大小：%3").arg(totalFileCount).arg(fileTypeCount.size()).arg(formatFileSize(totalFileSize)));
 
-    // 绘制饼图
+    // 绘制文件类型饼图
     initChart();
     updateChart(groupedFileTypeCount, totalFileCount);
 }
 
-// 更新图表数据
+// 获取文件大小分类
+QString classificationWindow::getFileSizeCategory(qint64 fileSize)
+{
+    if (fileSize < 1024) {
+        return "小文件 (< 1KB)";
+    } else if (fileSize < 1024 * 1024) {
+        return "中等文件 (1KB - 1MB)";
+    } else if (fileSize < 100 * 1024 * 1024) {
+        return "大文件 (1MB - 100MB)";
+    } else {
+        return "超大文件 (> 100MB)";
+    }
+}
+
+// 格式化文件大小显示
+QString classificationWindow::formatFileSize(qint64 size)
+{
+    if (size < 1024) {
+        return QString("%1 B").arg(size);
+    } else if (size < 1024 * 1024) {
+        return QString("%1 KB").arg(QString::number(size / 1024.0, 'f', 1));
+    } else if (size < 1024 * 1024 * 1024) {
+        return QString("%1 MB").arg(QString::number(size / (1024.0 * 1024.0), 'f', 1));
+    } else {
+        return QString("%1 GB").arg(QString::number(size / (1024.0 * 1024.0 * 1024.0), 'f', 1));
+    }
+}
+
+// 更新文件类型图表数据
 void classificationWindow::updateChart(const QMap<QString, int>& fileTypeCount, int totalCount)
 {
     // 清除现有系列
@@ -125,16 +172,11 @@ void classificationWindow::updateChart(const QMap<QString, int>& fileTypeCount, 
         slice->setLabelVisible(true);
         slice->setLabelPosition(QPieSlice::LabelOutside); // 标签位置在外部
         slice->setLabelArmLengthFactor(0.2);  // 调整标签延伸线长度
-
-
-
     }
 
     // 将系列添加到图表
     fileTypeChart->addSeries(series);
 }
-
-
 
 // 返回
 void classificationWindow::on_backButton_clicked()
@@ -178,6 +220,7 @@ void classificationWindow::on_pushButton_clicked()
     // 窗口会自动清理，因为使用了exec()
     previewWindow->deleteLater();
 }
+
 //click"按文件体积分类"
 void classificationWindow::on_pushButton_size_clicked()
 {
@@ -303,4 +346,3 @@ void classificationWindow::on_pushButton_time_clicked()
     // 清理窗口
     timePreviewWindow->deleteLater();
 }
-

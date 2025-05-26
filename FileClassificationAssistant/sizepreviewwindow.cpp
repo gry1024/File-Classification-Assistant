@@ -1,5 +1,7 @@
 // sizepreviewwindow.cpp
+//文件体积分类预览窗口
 #include "sizepreviewwindow.h"
+#include "executewindow.h"
 #include <QApplication>
 #include <QMessageBox>
 #include <QHeaderView>
@@ -377,6 +379,7 @@ void SizePreviewWindow::setupUI()
     QPushButton *deselectAllBtn = new QPushButton("全不选");
     QPushButton *refreshBtn = new QPushButton("刷新");
     QPushButton *closeBtn = new QPushButton("关闭");
+    QPushButton *executeBtn = new QPushButton("执行");
 
     // 统一按钮样式
     QString buttonStyle =
@@ -436,6 +439,17 @@ void SizePreviewWindow::setupUI()
                             "QPushButton:pressed {"
                             "    background-color: #a93226;"
                             "}");
+    executeBtn->setStyleSheet(buttonStyle +
+                              "QPushButton {"
+                              "    background-color: #16a085;"
+                              "    color: white;"
+                              "}"
+                              "QPushButton:hover {"
+                              "    background-color: #138d75;"
+                              "}"
+                              "QPushButton:pressed {"
+                              "    background-color: #117964;"
+                              "}");
 
     connect(selectAllBtn, &QPushButton::clicked, this, &SizePreviewWindow::selectAllFiles);
     connect(deselectAllBtn, &QPushButton::clicked, this, &SizePreviewWindow::deselectAllFiles);
@@ -443,11 +457,13 @@ void SizePreviewWindow::setupUI()
     connect(refreshBtn, &QPushButton::clicked, [this]() {
         QMessageBox::information(this, "刷新", "刷新文件列表完成！");
     });
+    connect(executeBtn, &QPushButton::clicked, this, &SizePreviewWindow::onExecuteButtonClicked);
 
     buttonLayout->addWidget(selectAllBtn);
     buttonLayout->addWidget(deselectAllBtn);
     buttonLayout->addWidget(refreshBtn);
     buttonLayout->addWidget(closeBtn);
+    buttonLayout->addWidget(executeBtn);
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
@@ -509,4 +525,29 @@ void SizePreviewWindow::deselectAllFiles()
 void SizePreviewWindow::onCloseButtonClicked()
 {
     accept();
+}
+
+void SizePreviewWindow::onExecuteButtonClicked()
+{
+    // 创建执行窗口实例
+    ExecuteWindow *executeWindow = new ExecuteWindow(this);
+
+    // 以模态对话框形式显示
+    int result = executeWindow->exec();
+
+    // 处理对话框返回结果
+    if (result == QDialog::Accepted) {
+        // 用户点击了"完成"按钮，处理已成功完成
+        QMessageBox::information(this, "操作完成",
+                                 "文件分类处理已成功完成！\n您可以查看分类结果。");
+    }
+    else if (result == QDialog::Rejected) {
+        // 用户选择了撤销操作或关闭了窗口
+        QMessageBox::information(this, "操作取消",
+                                 "文件分类操作已被取消或撤销。");
+    }
+
+    // 清理资源
+    delete executeWindow;
+    executeWindow = nullptr;
 }

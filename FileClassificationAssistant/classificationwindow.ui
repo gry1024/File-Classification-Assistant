@@ -24,28 +24,11 @@
     <rect>
      <x>6</x>
      <y>733</y>
-     <width>991</width>
-     <height>61</height>
+     <width>176</width>
+     <height>62</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
-    <item>
-     <widget class="QPushButton" name="backButton">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::StrongFocus</enum>
-      </property>
-      <property name="text">
-       <string>返回</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <layout class="QHBoxLayout" name="horizontalLayout_2"/>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
@@ -206,6 +189,9 @@
        <property name="text">
         <string>占比小于5%的文件归类为“其他”（不勾选则不予处理）</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QPushButton" name="pushButton">
        <property name="geometry">
@@ -268,24 +254,8 @@
        <property name="text">
         <string>小于                                                        </string>
        </property>
-      </widget>
-      <widget class="QDoubleSpinBox" name="doubleSpinBox">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>50</y>
-         <width>151</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="maximum">
-        <double>9999.989999999999782</double>
-       </property>
-       <property name="singleStep">
-        <double>50.000000000000000</double>
-       </property>
-       <property name="stepType">
-        <enum>QAbstractSpinBox::StepType::DefaultStepType</enum>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_3">
@@ -300,13 +270,16 @@
        <property name="text">
         <string/>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_4">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>221</width>
+         <width>181</width>
          <height>18</height>
         </rect>
        </property>
@@ -329,6 +302,9 @@
        <property name="singleStep">
         <double>10.000000000000000</double>
        </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
       </widget>
       <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
        <property name="geometry">
@@ -344,6 +320,9 @@
        </property>
        <property name="singleStep">
         <double>10.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>1.000000000000000</double>
        </property>
       </widget>
       <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
@@ -361,6 +340,9 @@
        <property name="singleStep">
         <double>10.000000000000000</double>
        </property>
+       <property name="value">
+        <double>100.000000000000000</double>
+       </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_5">
        <property name="geometry">
@@ -373,6 +355,9 @@
        </property>
        <property name="text">
         <string>大于                                                               </string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
@@ -389,6 +374,9 @@
        </property>
        <property name="singleStep">
         <double>50.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>100.000000000000000</double>
        </property>
       </widget>
       <widget class="QLabel" name="label_5">
@@ -469,6 +457,22 @@
         <string>M</string>
        </property>
       </widget>
+      <widget class="QDoubleSpinBox" name="doubleSpinBox">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>50</y>
+         <width>141</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="maximum">
+        <double>9999.989999999999782</double>
+       </property>
+       <property name="value">
+        <double>1.000000000000000</double>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="widget_6" native="true">
       <property name="geometry">
@@ -497,12 +501,15 @@
         <rect>
          <x>10</x>
          <y>60</y>
-         <width>391</width>
+         <width>331</width>
          <height>18</height>
         </rect>
        </property>
        <property name="text">
-        <string>                                               天内</string>
+        <string>                                   天内</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QSpinBox" name="spinBox">
@@ -510,12 +517,18 @@
         <rect>
          <x>30</x>
          <y>60</y>
-         <width>111</width>
+         <width>81</width>
          <height>21</height>
         </rect>
        </property>
        <property name="maximum">
         <number>9999</number>
+       </property>
+       <property name="value">
+        <number>7</number>
+       </property>
+       <property name="displayIntegerBase">
+        <number>10</number>
        </property>
       </widget>
       <widget class="QLabel" name="label_6">
@@ -536,12 +549,12 @@
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>391</width>
+         <width>301</width>
          <height>18</height>
         </rect>
        </property>
        <property name="text">
-        <string>                                               月内</string>
+        <string>                                   月内</string>
        </property>
       </widget>
       <widget class="QSpinBox" name="spinBox_2">
@@ -549,12 +562,15 @@
         <rect>
          <x>30</x>
          <y>90</y>
-         <width>111</width>
+         <width>81</width>
          <height>21</height>
         </rect>
        </property>
        <property name="maximum">
         <number>999</number>
+       </property>
+       <property name="value">
+        <number>1</number>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_9">
@@ -562,12 +578,12 @@
         <rect>
          <x>10</x>
          <y>120</y>
-         <width>391</width>
+         <width>301</width>
          <height>18</height>
         </rect>
        </property>
        <property name="text">
-        <string>                                               年内</string>
+        <string>                                   年内</string>
        </property>
       </widget>
       <widget class="QSpinBox" name="spinBox_3">
@@ -575,9 +591,12 @@
         <rect>
          <x>30</x>
          <y>120</y>
-         <width>111</width>
+         <width>81</width>
          <height>21</height>
         </rect>
+       </property>
+       <property name="value">
+        <number>1</number>
        </property>
       </widget>
      </widget>
@@ -603,6 +622,28 @@
      </widget>
     </widget>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="backButton">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>740</y>
+     <width>981</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>50</height>
+    </size>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::StrongFocus</enum>
+   </property>
+   <property name="text">
+    <string>返回</string>
+   </property>
   </widget>
  </widget>
  <customwidgets>

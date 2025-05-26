@@ -1,3 +1,4 @@
+//第一个出现的窗口：选择目录窗口
 #include "mainwindow.h"
 #include "classificationwindow.h"
 #include "ui_mainwindow.h"
