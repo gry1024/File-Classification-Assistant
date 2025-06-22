@@ -97,7 +97,8 @@ class TimePreviewWindow : public QDialog  // 基于修改时间的文件预览�
     Q_OBJECT
 
 public:
-    explicit TimePreviewWindow(QWidget *parent = nullptr);
+    explicit TimePreviewWindow(const QString& rootPath,
+                               QWidget *parent = nullptr);
 
     void setFileData(const QMap<QString, QList<FileTimeInfo>> &fileTimeData);  // 设置文件时间数据
 
@@ -108,6 +109,7 @@ private slots:
     void onExecuteButtonClicked();    // 执行
 
 private:
+    QString      rootDir;
     void setupUI();                   // 初始化UI布局
     void clearContent();              // 清除窗口内容
     void createFileTimeTypeWidgets(const QMap<QString, QList<FileTimeInfo>> &fileTimeData);  // 创建时间分类组件

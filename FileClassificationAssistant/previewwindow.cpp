@@ -1,6 +1,8 @@
 // previewwindow.cpp
 //文件类型分类预览窗口
 #include "previewwindow.h"
+#include <QFileInfo>
+#include <QDir>
 #include "executewindow.h"
 #include <QApplication>
 #include <QMessageBox>
@@ -8,6 +10,9 @@
 #include <QSizePolicy>
 #include <QLineEdit>
 #include <QScreen>
+#include <QFileInfo>
+#include <QDir>
+
 
 //new
 FileItemWidget::FileItemWidget(const QString &fileName, bool isSelected, QWidget *parent)
@@ -253,8 +258,9 @@ void FileTypeWidget::onFileItemClicked(QListWidgetItem *item)
 }
 
 
-PreviewWindow::PreviewWindow(QWidget *parent)
-    : QDialog(parent)
+PreviewWindow::PreviewWindow(const QString& rootPath, QWidget *parent)
+    : QDialog(parent),
+    rootDir(rootPath)
 {
     setupUI();
     setModal(true);
@@ -496,25 +502,44 @@ void PreviewWindow::onCloseButtonClicked()
 
 void PreviewWindow::onExecuteButtonClicked()
 {
-    // 创建执行窗口实例
-    ExecuteWindow *executeWindow = new ExecuteWindow(this);
+    //--------------------------------------------------
+    // 1. 收集所有选中的文件名
+    //--------------------------------------------------
+    QStringList selectedNames;
+    for (FileTypeWidget *widget : m_fileTypeWidgets)
+        selectedNames << widget->getSelectedFiles();
 
-    // 以模态对话框形式显示
+    if (selectedNames.isEmpty()) {
+        QMessageBox::information(this,"提示","没有选中的文件，无法执行分类。");
+        return;
+    }
+
+    //--------------------------------------------------
+    // 2. 组合成绝对路径 -> QList<QFileInfo>
+    //--------------------------------------------------
+    QList<QFileInfo> fileList;
+    for (const QString &name : std::as_const(selectedNames)) {
+        QString absPath = QDir(rootDir).filePath(name);
+        if (QFile::exists(absPath))
+            fileList << QFileInfo(absPath);
+    }
+
+    //--------------------------------------------------
+    // 3. 创建并执行 ExecuteWindow（按文件类型分类）
+    //--------------------------------------------------
+    ExecuteWindow *executeWindow =
+        new ExecuteWindow(rootDir, fileList, ExecuteWindow::ByType, this);
+
     int result = executeWindow->exec();
 
-    // 处理对话框返回结果
+    //--------------------------------------------------
+    // 4. 给用户反馈
+    //--------------------------------------------------
     if (result == QDialog::Accepted) {
-        // 用户点击了"完成"按钮，处理已成功完成
         QMessageBox::information(this, "操作完成",
                                  "文件分类处理已成功完成！\n您可以查看分类结果。");
-    }
-    else if (result == QDialog::Rejected) {
-        // 用户选择了撤销操作或关闭了窗口
+    } else {
         QMessageBox::information(this, "操作取消",
                                  "文件分类操作已被取消或撤销。");
     }
-
-    // 清理资源
-    delete executeWindow;
-    executeWindow = nullptr;
 }

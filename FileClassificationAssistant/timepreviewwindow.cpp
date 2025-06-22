@@ -9,6 +9,8 @@
 #include <QLineEdit>
 #include <QScreen>
 #include <QDate>
+#include <QFileInfo>
+#include <QDir>
 
 FileTimeItemWidget::FileTimeItemWidget(const FileTimeInfo &fileInfo, bool isSelected, QWidget *parent)
     : QWidget(parent), m_fileInfo(fileInfo), m_isSelected(isSelected) {
@@ -287,8 +289,9 @@ void FileTimeTypeWidget::onFileItemClicked(QListWidgetItem *item)
 }
 
 // TimePreviewWindow 实现
-TimePreviewWindow::TimePreviewWindow(QWidget *parent)
-    : QDialog(parent)
+TimePreviewWindow::TimePreviewWindow(const QString& rootPath, QWidget *parent)
+    : QDialog(parent),
+    rootDir(rootPath)
 {
     setupUI();
     setModal(true);
@@ -532,25 +535,39 @@ void TimePreviewWindow::onCloseButtonClicked()
 
 void TimePreviewWindow::onExecuteButtonClicked()
 {
-    // 创建执行窗口实例
-    ExecuteWindow *executeWindow = new ExecuteWindow(this);
+    // 1. 收集选中的 FileTimeInfo
+    QList<FileTimeInfo> selectedInfos;
+    for (FileTimeTypeWidget *w : m_fileTimeTypeWidgets)
+        selectedInfos << w->getSelectedFiles();
 
-    // 以模态对话框形式显示
-    int result = executeWindow->exec();
+    if (selectedInfos.isEmpty()) {
+        QMessageBox::information(this,"提示","没有选中的文件，无法执行分类。");
+        return;
+    }
 
-    // 处理对话框返回结果
+    // 2. 转成 QList<QFileInfo>
+    QList<QFileInfo> fileList;
+    QDir base(rootDir);
+    for (const FileTimeInfo &info : std::as_const(selectedInfos)) {
+        QString abs = info.filePath.isEmpty()
+        ? base.filePath(info.fileName)
+        : info.filePath;
+        if (QFile::exists(abs))
+            fileList << QFileInfo(abs);
+    }
+
+    // 3. 调用 ExecuteWindow（按修改时间分类）
+    ExecuteWindow *exeWin =
+        new ExecuteWindow(rootDir, fileList, ExecuteWindow::ByTime, this);
+
+    int result = exeWin->exec();
+
+    // 4. 结果提示
     if (result == QDialog::Accepted) {
-        // 用户点击了"完成"按钮，处理已成功完成
         QMessageBox::information(this, "操作完成",
                                  "文件分类处理已成功完成！\n您可以查看分类结果。");
-    }
-    else if (result == QDialog::Rejected) {
-        // 用户选择了撤销操作或关闭了窗口
+    } else {
         QMessageBox::information(this, "操作取消",
                                  "文件分类操作已被取消或撤销。");
     }
-
-    // 清理资源
-    delete executeWindow;
-    executeWindow = nullptr;
 }

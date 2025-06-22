@@ -86,7 +86,8 @@ class SizePreviewWindow : public QDialog  // 主预览窗口类
 {
     Q_OBJECT
 public:
-    explicit SizePreviewWindow(QWidget *parent = nullptr);
+    explicit SizePreviewWindow(const QString& rootPath,
+                               QWidget *parent = nullptr);
     void setFileData(const QMap<QString, QList<FileInfo>> &fileSizeData);  // 设置文件数据
 
 private slots:
@@ -96,6 +97,7 @@ private slots:
     void onExecuteButtonClicked();    // 执行
 
 private:
+    QString rootDir;
     void setupUI();                   // 初始化UI布局
     void clearContent();              // 清除窗口内容
     void createFileSizeTypeWidgets(const QMap<QString, QList<FileInfo>> &fileSizeData);  // 创建文件类型组件

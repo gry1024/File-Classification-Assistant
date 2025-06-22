@@ -1,25 +1,56 @@
 // 执行分类窗口（进度条、撤销按钮等）
 #include "executewindow.h"
+#include <QDir>
+#include <QFile>
 #include <QMessageBox>
-#include <QApplication>
+#include <QDateTime>
 
-ExecuteWindow::ExecuteWindow(QWidget *parent)
-    : QDialog(parent)
-    , mainLayout(nullptr)
-    , buttonLayout(nullptr)
-    , titleLabel(nullptr)
-    , statusLabel(nullptr)
-    , progressBar(nullptr)
-    , finishButton(nullptr)
-    , undoButton(nullptr)
-    , progressTimer(nullptr)
-    , currentProgress(0)
-    , isProcessing(false)
-    , isFinished(false)
+
+static QString sizeCategory(qint64 s)
+{
+    if (s < 1024)               return "小文件(<1KB)";
+    if (s < 1024*1024)          return "中等文件(1KB-1MB)";
+    if (s < 100*1024*1024)      return "大文件(1MB-100MB)";
+    return "超大文件(>100MB)";
+}
+
+static QString timeCategory(const QDateTime& mt)
+{
+    QDate today = QDate::currentDate();
+    QDateTime today0(today, QTime(0,0));
+    if (mt >= today0)                         return "今天";
+    if (mt >= today0.addDays(-1))             return "昨天";
+    if (mt >= today0.addDays(-today.dayOfWeek()+1)) return "本周";
+    if (mt.date().month() == today.month())   return "本月";
+    return "更早";
+}
+
+
+ExecuteWindow::ExecuteWindow(const QString &rootPath,
+                             const QList<QFileInfo> &files,
+                             Mode m,
+                             QWidget *parent)
+    : QDialog(parent),
+    mainLayout(nullptr),
+    buttonLayout(nullptr),
+    titleLabel(nullptr),
+    statusLabel(nullptr),
+    progressBar(nullptr),
+    finishButton(nullptr),
+    undoButton(nullptr),
+    progressTimer(nullptr),
+    currentProgress(0),
+    isProcessing(false),
+    isFinished(false),
+    rootDir(rootPath),
+    fileList(files),
+    mode(m),
+    currentIndex(0)
 {
     setupUI();
     startFileClassification();
 }
+
 
 ExecuteWindow::~ExecuteWindow()
 {
@@ -129,49 +160,82 @@ void ExecuteWindow::setupUI()
 void ExecuteWindow::startFileClassification()
 {
     isProcessing = true;
-    isFinished = false;
+    isFinished   = false;
+    currentIndex = 0;
     currentProgress = 0;
 
     statusLabel->setText("正在处理文件...");
     progressBar->setValue(0);
     finishButton->setEnabled(false);
 
-    // 这里应该调用实际的文件分类处理逻辑
-    // 目前使用定时器模拟进度更新
-    progressTimer->start(100); // 每100ms更新一次进度
+    if (!progressTimer) {
+        progressTimer = new QTimer(this);
+        connect(progressTimer, &QTimer::timeout,
+                this, &ExecuteWindow::updateProgress);
+    }
+    progressTimer->start(20);          // 每 20ms 处理一个文件
 }
+
 
 void ExecuteWindow::updateProgress()
 {
-    if (!isProcessing) {
+    if (!isProcessing) return;
+
+    // 全部处理完
+    if (currentIndex >= fileList.size()) {
+        onProcessFinished();
         return;
     }
 
-    // 模拟进度更新（实际应用中应该从文件处理逻辑获取真实进度）
-    currentProgress += (rand() % 3 + 1); // 随机增加1-3的进度
-
-    if (currentProgress >= 100) {
-        currentProgress = 100;
-        onProcessFinished();
+    // 取当前文件并计算目标目录
+    QFileInfo fi = fileList.at(currentIndex++);
+    QString subDir;
+    switch (mode) {
+    case ByType:
+        subDir = fi.suffix().isEmpty()
+                     ? "无后缀"
+                     : fi.suffix().toLower();
+        break;
+    case BySize:
+        subDir = sizeCategory(fi.size());
+        break;
+    case ByTime:
+        subDir = timeCategory(fi.lastModified());
+        break;
     }
 
+    // 创建子目录并移动文件
+    QDir dir(rootDir);
+    if (!dir.exists(subDir))
+        dir.mkdir(subDir);
+    QString dstPath = dir.filePath(subDir + "/" + fi.fileName());
+    if (QFile::exists(dstPath))
+        QFile::remove(dstPath);            // 简单覆盖
+    if (QFile::rename(fi.filePath(), dstPath))
+        history << qMakePair(dstPath, fi.filePath());   // 记录
+
+    // 更新进度条
+    currentProgress = static_cast<int>(100.0 * currentIndex / fileList.size());
     progressBar->setValue(currentProgress);
     statusLabel->setText(QString("处理进度: %1%").arg(currentProgress));
 }
+
+
 
 void ExecuteWindow::onProcessFinished()
 {
     progressTimer->stop();
     isProcessing = false;
-    isFinished = true;
+    isFinished   = true;
 
+    progressBar->setValue(100);
     statusLabel->setText("文件分类处理完成！");
     finishButton->setEnabled(true);
     finishButton->setText("完成");
 
-    // 可以在这里添加完成后的其他操作
     QMessageBox::information(this, "处理完成", "文件分类处理已成功完成！");
 }
+
 
 void ExecuteWindow::on_finishButton_clicked()
 {
@@ -182,37 +246,52 @@ void ExecuteWindow::on_finishButton_clicked()
 
 void ExecuteWindow::on_undoButton_clicked()
 {
-    QString message;
+    // 处理中 → 中止并撤销已完成部分
     if (isProcessing) {
-        message = "确定要中止当前的文件分类处理吗？\n这将撤销所有已处理的操作。";
-    } else if (isFinished) {
-        message = "确定要撤销已完成的文件分类操作吗？\n这将恢复文件到处理前的状态。";
-    } else {
-        message = "确定要撤销操作吗？";
+        progressTimer->stop();
+        isProcessing = false;
+        undoFileClassification();
+        QMessageBox::information(this,"已撤销","已中止并撤销已完成的移动操作。");
+        reject();
+        return;
     }
 
-    QMessageBox::StandardButton reply = QMessageBox::question(
-        this,
-        "确认撤销",
-        message,
-        QMessageBox::Yes | QMessageBox::No,
-        QMessageBox::No
-        );
-
-    if (reply == QMessageBox::Yes) {
-        // 这里应该调用实际的撤销逻辑
-        if (isProcessing) {
-            progressTimer->stop();
-            isProcessing = false;
+    // 已完成 → 撤销全部
+    if (isFinished) {
+        if (QMessageBox::question(this,"确认撤销",
+                                  "确定要撤销刚才的文件分类操作吗？") == QMessageBox::Yes)
+        {
+            undoFileClassification();
+            QMessageBox::information(this,"撤销完成","文件已恢复至原位置。");
+            accept();
         }
-
-        // 执行撤销操作的代码应该在这里
-        // undoFileClassification();
-
-        QMessageBox::information(this, "撤销完成", "文件分类操作已成功撤销！");
-        reject(); // 关闭对话框并返回Rejected
     }
 }
+
+void ExecuteWindow::undoFileClassification()
+{
+    // 反向移动文件，避免覆盖
+    for (int i = history.size() - 1; i >= 0; --i) {
+        const QString &src = history[i].first;   // 现位置（分类后）
+        const QString &dst = history[i].second;  // 原位置
+
+        // 先把文件搬回
+        QDir().mkpath(QFileInfo(dst).absolutePath());
+        QFile::rename(src, dst);
+
+        // ---------- 删除可能空掉的目录 ----------
+        QDir dir(QFileInfo(src).absolutePath()); // 分类文件所在目录
+        while (dir.path() != rootDir) {          // 不越过根目录
+            if (!dir.entryList(QDir::NoDotAndDotDot | QDir::AllEntries).isEmpty())
+                break;                           // 目录还有别的东西，退出
+            QDir parent = dir;  parent.cdUp();   // 记录父目录后删除自己
+            parent.rmdir(dir.dirName());         // 仅当空时才会成功
+            dir = parent;                        // 继续向上
+        }
+    }
+    history.clear();
+}
+
 
 void ExecuteWindow::resetProgress()
 {
