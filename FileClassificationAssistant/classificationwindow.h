@@ -5,6 +5,9 @@
 #include <QMap>
 #include <QtCharts>
 #include <QFileInfo>
+#include <QDirIterator>
+#include <QFileInfo>
+#include <QDateTime>
 
 namespace Ui {
 class classificationWindow;
@@ -37,6 +40,8 @@ private:
     // 文件类型图表相关
     QChartView *fileTypeChartView;
     QChart *fileTypeChart;
+private:
+    QList<QFileInfo> collectAllFiles() const;   // 递归收集文件
 
 };
 

@@ -95,12 +95,15 @@ class PreviewWindow : public QDialog
 
 public:
     // 构造函数：初始化预览窗口，参数为父组件指针
-    explicit PreviewWindow(QWidget *parent = nullptr);
+    explicit PreviewWindow(const QString& rootPath,
+                           QWidget *parent = nullptr);
+
 
     // 设置文件数据：传入文件类型与文件列表的映射，用于更新窗口显示
     void setFileData(const QMap<QString, QStringList> &fileTypeData);
 
 private:
+    QString      rootDir;
     QScrollArea *m_horizontalScrollArea;        // 水平滚动区域，用于显示多个文件类型组件
     QWidget *m_contentWidget;                   // 内容容器Widget，作为滚动区域的子部件
     QHBoxLayout *m_contentLayout;               // 水平布局管理器，管理文件类型组件的排列
