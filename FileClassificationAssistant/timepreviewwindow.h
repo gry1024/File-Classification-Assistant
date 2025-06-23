@@ -98,6 +98,7 @@ class TimePreviewWindow : public QDialog  // 基于修改时间的文件预览�
 
 public:
     explicit TimePreviewWindow(const QString& rootPath,
+                               const QMap<QString, QString> &folderMap,
                                QWidget *parent = nullptr);
 
     void setFileData(const QMap<QString, QList<FileTimeInfo>> &fileTimeData);  // 设置文件时间数据
@@ -118,6 +119,7 @@ private:
     QWidget *m_contentWidget;         // 内容容器部件
     QHBoxLayout *m_contentLayout;     // 内容布局管理器
     QList<FileTimeTypeWidget*> m_fileTimeTypeWidgets;  // 时间分类组件列表
+    QMap<QString, QString> folderNameMap;
 };
 
 #endif // TIMEPREVIEWWINDOW_H

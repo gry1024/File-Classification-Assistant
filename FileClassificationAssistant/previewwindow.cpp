@@ -258,9 +258,12 @@ void FileTypeWidget::onFileItemClicked(QListWidgetItem *item)
 }
 
 
-PreviewWindow::PreviewWindow(const QString& rootPath, QWidget *parent)
+PreviewWindow::PreviewWindow(const QString& rootPath,
+                             const QMap<QString, QString> &folderMap,
+                             QWidget *parent)
     : QDialog(parent),
-    rootDir(rootPath)
+    rootDir(rootPath),
+    folderNameMap(folderMap)
 {
     setupUI();
     setModal(true);
@@ -506,8 +509,17 @@ void PreviewWindow::onExecuteButtonClicked()
     // 1. 收集所有选中的文件名
     //--------------------------------------------------
     QStringList selectedNames;
+    QMap<QString, QString> folderMapping;
     for (FileTypeWidget *widget : m_fileTypeWidgets)
-        selectedNames << widget->getSelectedFiles();
+    {
+        QString folderName = widget->getFolderName();  // 获取用户设置的文件夹名称
+        QStringList selectedFiles = widget->getSelectedFiles();
+        selectedNames.append(selectedFiles);
+        for (const QString &file : selectedFiles)
+        {
+            folderMapping[file] = folderName;  // 记录文件名对应的文件夹名称
+        }
+    }
 
     if (selectedNames.isEmpty()) {
         QMessageBox::information(this,"提示","没有选中的文件，无法执行分类。");
@@ -528,7 +540,7 @@ void PreviewWindow::onExecuteButtonClicked()
     // 3. 创建并执行 ExecuteWindow（按文件类型分类）
     //--------------------------------------------------
     ExecuteWindow *executeWindow =
-        new ExecuteWindow(rootDir, fileList, ExecuteWindow::ByType, this);
+        new ExecuteWindow(rootDir, fileList, folderMapping, this);
 
     int result = executeWindow->exec();
 

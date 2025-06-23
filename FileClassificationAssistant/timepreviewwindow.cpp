@@ -289,9 +289,12 @@ void FileTimeTypeWidget::onFileItemClicked(QListWidgetItem *item)
 }
 
 // TimePreviewWindow 实现
-TimePreviewWindow::TimePreviewWindow(const QString& rootPath, QWidget *parent)
+TimePreviewWindow::TimePreviewWindow(const QString& rootPath,
+                                     const QMap<QString, QString> &folderMap,
+                                     QWidget *parent)
     : QDialog(parent),
-    rootDir(rootPath)
+    rootDir(rootPath),
+    folderNameMap(folderMap)
 {
     setupUI();
     setModal(true);
@@ -537,8 +540,21 @@ void TimePreviewWindow::onExecuteButtonClicked()
 {
     // 1. 收集选中的 FileTimeInfo
     QList<FileTimeInfo> selectedInfos;
-    for (FileTimeTypeWidget *w : m_fileTimeTypeWidgets)
-        selectedInfos << w->getSelectedFiles();
+    QMap<QString, QString> folderMapping;
+    for (FileTimeTypeWidget *w : m_fileTimeTypeWidgets) {
+        // 获取用户设置的文件夹名称
+        QString folderName = w->getFolderName();
+
+        // 获取此类型的所有选中文件
+        QList<FileTimeInfo> infos = w->getSelectedFiles();
+        selectedInfos << infos;
+
+        // 为每个文件分配文件夹名称
+        for (const FileTimeInfo &info : infos) {
+            folderMapping[info.fileName] = folderName;
+        }
+    }
+
 
     if (selectedInfos.isEmpty()) {
         QMessageBox::information(this,"提示","没有选中的文件，无法执行分类。");
@@ -558,7 +574,7 @@ void TimePreviewWindow::onExecuteButtonClicked()
 
     // 3. 调用 ExecuteWindow（按修改时间分类）
     ExecuteWindow *exeWin =
-        new ExecuteWindow(rootDir, fileList, ExecuteWindow::ByTime, this);
+        new ExecuteWindow(rootDir, fileList, folderMapping, this);
 
     int result = exeWin->exec();
 

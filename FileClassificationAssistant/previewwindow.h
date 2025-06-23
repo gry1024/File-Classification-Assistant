@@ -96,6 +96,7 @@ class PreviewWindow : public QDialog
 public:
     // 构造函数：初始化预览窗口，参数为父组件指针
     explicit PreviewWindow(const QString& rootPath,
+                           const QMap<QString, QString> &folderMap,
                            QWidget *parent = nullptr);
 
 
@@ -108,6 +109,7 @@ private:
     QWidget *m_contentWidget;                   // 内容容器Widget，作为滚动区域的子部件
     QHBoxLayout *m_contentLayout;               // 水平布局管理器，管理文件类型组件的排列
     QList<FileTypeWidget*> m_fileTypeWidgets;    // 存储所有文件类型组件的列表
+    QMap<QString, QString> folderNameMap;
 
     void setupUI();                             // 私有函数：初始化窗口整体UI布局
     void clearContent();                        // 私有函数：清除现有文件类型组件（用于刷新）

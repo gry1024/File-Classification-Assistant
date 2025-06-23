@@ -203,6 +203,7 @@ void classificationWindow::on_backButton_clicked()
 void classificationWindow::on_pushButton_clicked()
 {
     QMap<QString, QStringList> fileData;          // <类型, 文件名列表>
+    QMap<QString, QString> folderMap;             // 文件夹名称映射
 
     const auto files = collectAllFiles();
     for (const QFileInfo &fi : files)
@@ -211,10 +212,11 @@ void classificationWindow::on_pushButton_clicked()
         if (suffix.isEmpty()) suffix = "无后缀";
 
         fileData[suffix] << fi.fileName();        // 只展示文件名，如需完整路径改成 fi.filePath()
+        folderMap[fi.fileName()] = suffix;
     }
 
     // 打开预览
-    PreviewWindow *w = new PreviewWindow(selectedPath, this);
+    PreviewWindow *w = new PreviewWindow(selectedPath,folderMap, this);
     w->setFileData(fileData);
     w->exec();
     w->deleteLater();
@@ -224,6 +226,7 @@ void classificationWindow::on_pushButton_clicked()
 void classificationWindow::on_pushButton_size_clicked()
 {
     QMap<QString, QList<FileInfo>> fileSizeData;      // <区间, 文件信息列表>
+    QMap<QString, QString> folderMap;
 
     const auto files = collectAllFiles();
     for (const QFileInfo &fi : files)
@@ -231,9 +234,10 @@ void classificationWindow::on_pushButton_size_clicked()
         qint64 sz = fi.size();
         QString cat = getFileSizeCategory(sz);        // 您已有的函数
         fileSizeData[cat] << FileInfo(fi.fileName(), sz, fi.filePath());
+        folderMap[fi.fileName()] = cat;
     }
 
-    SizePreviewWindow *w = new SizePreviewWindow(selectedPath, this);
+    SizePreviewWindow *w = new SizePreviewWindow(selectedPath, folderMap, this);
     w->setFileData(fileSizeData);
     w->exec();
     w->deleteLater();
@@ -260,16 +264,18 @@ static QString timeBucket(const QDateTime& mtime)
 void classificationWindow::on_pushButton_time_clicked()
 {
     QMap<QString, QList<FileTimeInfo>> fileTimeData;  // <区间, 文件信息列表>
+    QMap<QString, QString> folderMap;
 
     const auto files = collectAllFiles();
     for (const QFileInfo &fi : files)
     {
         QString bucket = timeBucket(fi.lastModified());
         fileTimeData[bucket] << FileTimeInfo(fi.fileName(), fi.lastModified(), fi.filePath());
+        folderMap[fi.fileName()] = bucket;
     }
 
     // 打开预览
-    TimePreviewWindow *w = new TimePreviewWindow(selectedPath, this);
+    TimePreviewWindow *w = new TimePreviewWindow(selectedPath,folderMap, this);
     w->setFileData(fileTimeData);
     w->exec();
     w->deleteLater();

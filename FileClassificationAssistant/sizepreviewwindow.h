@@ -87,8 +87,10 @@ class SizePreviewWindow : public QDialog  // 主预览窗口类
     Q_OBJECT
 public:
     explicit SizePreviewWindow(const QString& rootPath,
+                               const QMap<QString, QString> &folderMap,
                                QWidget *parent = nullptr);
     void setFileData(const QMap<QString, QList<FileInfo>> &fileSizeData);  // 设置文件数据
+    QMap<QString, double> getCustomThresholds() const;
 
 private slots:
     void selectAllFiles();            // 选中所有文件
@@ -105,6 +107,8 @@ private:
     QWidget *m_contentWidget;         // 内容容器
     QHBoxLayout *m_contentLayout;     // 内容布局
     QList<FileSizeTypeWidget*> m_fileSizeTypeWidgets;  // 文件类型组件列表
+    QMap<QString, QString> folderNameMap;
+    QMap<QString, double> m_customThresholds;
 };
 
 #endif // SIZEPREVIEWWINDOW_H

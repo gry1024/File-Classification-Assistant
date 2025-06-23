@@ -286,9 +286,12 @@ void FileSizeTypeWidget::onFileItemClicked(QListWidgetItem *item)
 }
 
 // SizePreviewWindow 实现
-SizePreviewWindow::SizePreviewWindow(const QString& rootPath, QWidget *parent)
+SizePreviewWindow::SizePreviewWindow(const QString& rootPath,
+                                     const QMap<QString, QString> &folderMap,
+                                     QWidget *parent)
     : QDialog(parent),
-    rootDir(rootPath)
+    rootDir(rootPath),
+    folderNameMap(folderMap)
 {
     setupUI();
     setModal(true);
@@ -470,6 +473,11 @@ void SizePreviewWindow::setupUI()
     mainLayout->addLayout(buttonLayout);
 
     setLayout(mainLayout);
+
+    // === 添加阈值设置区域 ===
+    // 在主布局中添加水平布局用于阈值设置
+    QHBoxLayout *thresholdsLayout = new QHBoxLayout();
+    thresholdsLayout->setSpacing(10);
 }
 
 void SizePreviewWindow::setFileData(const QMap<QString, QList<FileInfo>> &fileSizeData)
@@ -536,8 +544,17 @@ void SizePreviewWindow::onExecuteButtonClicked()
     // 1. 收集所有被选中的 FileInfo
     //------------------------------------------
     QList<FileInfo> selectedInfos;
-    for (FileSizeTypeWidget *w : m_fileSizeTypeWidgets)
-        selectedInfos << w->getSelectedFiles();
+    QMap<QString, QString> folderMapping;  // 文件名 -> 文件夹名称
+    for (FileSizeTypeWidget *widget : m_fileSizeTypeWidgets)
+    {
+        QString folderName = widget->getFolderName();  // 获取用户设置的文件夹名称
+        QList<FileInfo> selectedFiles = widget->getSelectedFiles();
+        selectedInfos << widget->getSelectedFiles();
+        for (const FileInfo &file : selectedFiles)
+        {
+            folderMapping[file.fileName] = folderName;  // 记录文件名对应的文件夹名称
+        }
+    }
 
     if (selectedInfos.isEmpty()) {
         QMessageBox::information(this,"提示","没有选中的文件，无法执行分类。");
@@ -562,7 +579,7 @@ void SizePreviewWindow::onExecuteButtonClicked()
     // 3. 创建并运行 ExecuteWindow（按体积分类）
     //------------------------------------------
     ExecuteWindow *exeWin =
-        new ExecuteWindow(rootDir, fileList, ExecuteWindow::BySize, this);
+        new ExecuteWindow(rootDir, fileList, folderMapping, this);
 
     int result = exeWin->exec();
 

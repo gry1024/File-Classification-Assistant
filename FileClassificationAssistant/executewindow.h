@@ -16,12 +16,11 @@ class ExecuteWindow : public QDialog
 {
     Q_OBJECT
 public:
-    enum Mode { ByType, BySize, ByTime };
 
     // 新构造：需要根目录、待处理文件列表和分类模式
     ExecuteWindow(const QString& rootPath,
                   const QList<QFileInfo>& files,
-                  Mode m,
+                  const QMap<QString, QString> & floderMap,
                   QWidget *parent = nullptr);
     ~ExecuteWindow();
 
@@ -54,7 +53,7 @@ private:
 
     QString                       rootDir;     // 根目录
     QList<QFileInfo>              fileList;    // 要处理的文件
-    Mode                          mode;        // 分类模式
+    QMap<QString,QString>         floderNameMap;
     int                           currentIndex;// 当前处理到的文件下标
     QList<QPair<QString,QString>> history;     // <现路径, 原路径> 用于撤销
 };

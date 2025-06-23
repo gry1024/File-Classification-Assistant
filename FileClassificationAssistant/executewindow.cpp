@@ -28,7 +28,7 @@ static QString timeCategory(const QDateTime& mt)
 
 ExecuteWindow::ExecuteWindow(const QString &rootPath,
                              const QList<QFileInfo> &files,
-                             Mode m,
+                             const QMap<QString, QString> &floderMap,
                              QWidget *parent)
     : QDialog(parent),
     mainLayout(nullptr),
@@ -44,7 +44,7 @@ ExecuteWindow::ExecuteWindow(const QString &rootPath,
     isFinished(false),
     rootDir(rootPath),
     fileList(files),
-    mode(m),
+    floderNameMap(floderMap),
     currentIndex(0)
 {
     setupUI();
@@ -189,20 +189,7 @@ void ExecuteWindow::updateProgress()
 
     // 取当前文件并计算目标目录
     QFileInfo fi = fileList.at(currentIndex++);
-    QString subDir;
-    switch (mode) {
-    case ByType:
-        subDir = fi.suffix().isEmpty()
-                     ? "无后缀"
-                     : fi.suffix().toLower();
-        break;
-    case BySize:
-        subDir = sizeCategory(fi.size());
-        break;
-    case ByTime:
-        subDir = timeCategory(fi.lastModified());
-        break;
-    }
+    QString subDir = floderNameMap.value(fi.fileName(),"未分类");
 
     // 创建子目录并移动文件
     QDir dir(rootDir);
